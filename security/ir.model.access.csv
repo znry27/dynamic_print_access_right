@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_print_access_right_user,print.access.right,model_print_access_right,,1,0,0,0
+access_print_access_right_manager,print.access.right,model_print_access_right,base.group_system,1,1,1,1
+access_print_count_user,print.count,model_print_count,,1,0,0,0
+access_print_count_manager,print.count,model_print_count,base.group_system,1,1,1,1

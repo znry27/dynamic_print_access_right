@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>  
+
+
+    <record id="print_access_right_action" model="ir.actions.act_window">
+        <field name="name">Print Access Right</field>
+        <field name="res_model">print.access.right</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="print_access_right_form" model="ir.ui.view">
+        <field name="name">Print Access Right Form</field>
+        <field name="model">print.access.right</field>
+        <field name="arch" type="xml">
+            <form string="Print Access Right">
+                <header>
+                    <button name="set_active" string="Set Active" type="object" class="oe_highlight" attrs="{'invisible': [('active','=',True)]}"/>                    
+                    <button name="set_inactive" string="Set Inactive" type="object" class="oe_highlight" attrs="{'invisible': [('active','=',False)]}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1" />
+                            <field name="name" required="1" />
+                            <field name="document_id" required="1" />
+                            <field name="priority" required="1" />
+                            <field name="error_message" required="1" />
+                        </group>
+                        <group>
+                            <field name="type" required="1" />
+                            <field name="max_print_count" attrs="{'invisible': [('type','in',['fixed','by_condition'])], 'required': [('type','in',['fixed_limit_count','by_condition_limit_count'])]}" />
+                            <field name="condition_model" invisible="1"/>
+                            <field name="condition" widget="print_domain" options="{'in_dialog': true}" attrs="{'invisible': [('type','in',['fixed','fixed_limit_count'])], 'required': [('type','in',['by_condition','by_condition_limit_count'])]}" />
+                            <field name="apply_to_all_user" />
+                            <field name="apply_to_user_ids" widget="many2many_tags" attrs="{'invisible': [('apply_to_all_user','=',True)], 'required': [('apply_to_all_user','=',False)]}" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>    
+
+    <record id="print_access_right_tree" model="ir.ui.view">
+        <field name="name">Print Access Right Tree</field>
+        <field name="model">print.access.right</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="document_id" />
+                <field name="type" />
+                <field name="active" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="print_access_right_search" model="ir.ui.view">
+        <field name="name">Print Access Right Search</field>
+        <field name="model">print.access.right</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="document_id"/>
+                <filter string="Inactive" name="inactive" domain="[('active','=',False)]" />
+            </search>
+        </field>
+    </record>
+
+    <record id="act_report_xml_view_inherit" model="ir.ui.view">
+        <field name="name">act_report_xml_view_inherit</field>
+        <field name="model">ir.actions.report</field>
+        <field name="inherit_id" ref="base.act_report_xml_view" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Print Count">
+                    <field name="print_count_ids">
+                        <tree create="0" delete="0" write="0" editable="bottom">
+                            <field name="user_id" />
+                            <field name="active_id" string="Record ID" />
+                            <field name="count" />
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <menuitem
+      action="dynamic_print_access_right.print_access_right_action" id="menu_print_access_right_action"
+      parent="base.reporting_menuitem" name="Print Access Right" />
+
+</odoo>
