@@ -54,12 +54,10 @@ class PrintAccessRight(models.Model):
         
         for acc_right in acc_rights:
             if acc_right.type == 'fixed':
-                print('A=')
                 if acc_right.apply_to_all_user or (not acc_right.apply_to_all_user and user_id in acc_right.apply_to_user_ids.ids):
                     raise ValidationError(acc_right.error_message)
 
             elif acc_right.type == 'fixed_limit_count':
-                print('B')
                 for active_id in active_ids:
                     print_count = self.env['print.count'].sudo().search([('document_id','=',action_id), ('user_id','=',user_id), ('active_id','=',active_id)],limit=1)
                     if not print_count:
@@ -75,14 +73,12 @@ class PrintAccessRight(models.Model):
                         print_count.count = print_count.count + 1
 
             elif acc_right.type == 'by_condition':
-                print('C=')
                 for active_id in active_ids:
                     if acc_right.is_condition_match(active_id):
                         if (acc_right.apply_to_all_user or (not acc_right.apply_to_all_user and user_id in acc_right.apply_to_user_ids.ids)):
                             raise ValidationError(acc_right.error_message)
 
             elif acc_right.type == 'by_condition_limit_count':
-                print('D=')
                 for active_id in active_ids:
                     if acc_right.is_condition_match(active_id):
                         print_count = self.env['print.count'].sudo().search([('document_id','=',action_id), ('user_id','=',user_id), ('active_id','=',active_id)],limit=1)

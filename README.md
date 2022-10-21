@@ -49,5 +49,5 @@ User can print the document only if the limitation condition not match and the p
 ![Create by condition and print count print access right](https://en.ngasturi.id/wp-content/uploads/2021/01/odoo_create_by_condition_and_print_count.png)
 
 
-This module is tested in odoo 13 and 14. Please report me if you found a bug.
+This module is tested in odoo 13 and 14, for other versions please check other branches. Please report me if you found a bug.
 
