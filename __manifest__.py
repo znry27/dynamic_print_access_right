@@ -13,12 +13,16 @@
     ],
     "data": [
         "security/ir.model.access.csv",
-        "views/assets.xml",
         "views/view.xml"
     ],
-    "qweb": [
-        "static/src/xml/template.xml"
-    ],
-    "license": 'LGPL-3', 
+    "assets": {
+        "web.assets_backend": [
+            "/dynamic_print_access_right/static/src/js/print_domain_widget.js"
+        ],
+        "web.assets_qweb": [
+           "/dynamic_print_access_right/static/src/xml/template.xml" 
+        ]
+    },
+    "license": "LGPL-3", 
     "installable": True,
 }

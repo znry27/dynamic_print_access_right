@@ -26,7 +26,7 @@ odoo.define('dynamic_print_access_right.print_domain_widget', function (require)
             this._$content = $(qweb.render("PrintDomain.content", {
                 hasModel: !!this._domainModel,
                 isValid: !!this._isValidForModel,
-                nbRecords: this.record.specialData[this.name].nbRecords || 0,
+                nbRecords: this.nbRecords,
                 inDialogEdit: this.inDialog && this.mode === "edit",
             }));
             this._$content.appendTo(this.$el);
